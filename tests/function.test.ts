@@ -1,3 +1,5 @@
+import { sayHello } from "../src/say-hello";
+
 describe("Function", function () {
   it("should support in typescript", function () {
     function sayHello(name: string): string {
@@ -45,5 +47,47 @@ describe("Function", function () {
 
     expect(sayHello("Mustofa")).toBe("Hello, Mustofa");
     expect(sayHello("Mustofa", "Adny")).toBe("Hello, Mustofa Adny");
+  });
+
+  // function overloading
+  it("should support function overloading", function () {
+    function callMe(value: number): number;
+    function callMe(value: string): string;
+    function callMe(value: any): any {
+      if (typeof value === "string") {
+        return value.toUpperCase;
+      } else if (typeof value === "number") {
+        return value + 2;
+      }
+    }
+
+    expect(callMe(1)).toBe(3);
+    expect(callMe("Mustofa")).toBe("MUSTOFA");
+  });
+
+  // function parameter
+  it("should support function parameter", function () {
+    function sayHello(name: string, filter: (name: string) => string): string {
+      return `Hello ${filter(name)}`;
+    }
+
+    function upperName(name: string): string {
+      return name.toUpperCase();
+    }
+
+    expect(sayHello("Mustofa", upperName)).toBe("Hello MUSTOFA");
+  });
+
+  // function parameter anonymous
+  it("it should return function parameter anonymous", function () {
+    function sayHello(name: string, filter: (name: string) => string): string {
+      return `Hello ${filter(name)}`;
+    }
+
+    expect(
+      sayHello("Mustofa", function (name: string): string {
+        return name.toUpperCase();
+      })
+    ).toBe("Hello MUSTOFA");
   });
 });
