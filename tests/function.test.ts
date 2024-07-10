@@ -89,5 +89,9 @@ describe("Function", function () {
         return name.toUpperCase();
       })
     ).toBe("Hello MUSTOFA");
+
+    expect(
+      sayHello("Mustofa", (name: string): string => name.toUpperCase())
+    ).toBe("MUSTOFA");
   });
 });
